@@ -1,0 +1,24 @@
+---
+- name: "Include vars for '{{ operation }}' operation"
+  ansible.builtin.include_vars: "../vars/{{ operation }}_vars.yml"
+
+- name: "Debug of passed arguments and values to the role"
+  ansible.builtin.debug:
+    msg: "Role argument= {{ item.name }} -> {{ item.value }}"
+  loop:
+    - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE !
+    - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE !
+  when: debug_role | bool
+
+- name: "Include tasks file based on operation '{{ operation }}'"
+  ansible.builtin.include_tasks: "{{ operation }}_tasks.yml"
+
+- name: "Set custom stats (Ansible Core) / artefact (Ansible Tower)" # Dans ansible.cfg -> ANSIBLE_SHOW_CUSTOM_STATS: True
+  set_stats:
+    data:
+      custom_stats: "{{ result }}"
+  
+- name: "DEBUG custom stats / artefacts"
+  debug:
+    var: custom_stats_info
+  when: debug_role | bool
