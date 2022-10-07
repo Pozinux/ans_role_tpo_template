@@ -5,8 +5,6 @@
     vault_ansible_folder: "/etc/ansible/vaults"
     vault_file: "vault-VAULT_NAME.yml"  ## REPLACE HERE !
     playbook_description: "Main Play to XXXXXXXXXXXXXXXXXX"  ## REPLACE HERE !
-    succeed_result_msg: "{{ playbook_description }} SUCCEEDED"
-    failed_result_msg: "{{ playbook_description }} FAILED"
     main_role_name: ans_role_XXXXXXXXXXXXXXXXXX  ## REPLACE HERE !
     rescue_role_name: ans_role_rescue
     outputs_define_role_name: ans_role_outputs_define
@@ -67,6 +65,6 @@
               tags: always
           vars:
             result_error_msg: "{{ rescue_result | default([]) }}"
-            succeed_result_msg: "{{ succeed_result_msg }}"
-            failed_result_msg: "{{ failed_result_msg }}"
+            succeed_result_msg: "SUCCEEDED"
+            failed_result_msg: "FAILED"
           tags: always
