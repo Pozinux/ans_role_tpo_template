@@ -1,0 +1,14 @@
+- name: ans_role_TPO_TEMPLATE  # REPLACE HERE!
+  src: http://GITLAB_ADDRESS/ansible/ans_role_TPO_TEMPLATE.git  # REPLACE HERE!
+  scm: git
+  version: master
+
+- name: ans_role_rescue
+  src: http://GITLAB_ADDRESS/ansible/ans_role_rescue.git  # REPLACE HERE!
+  scm: git
+  version: master
+
+- name: ans_role_outputs_define
+  src: http://GITLAB_ADDRESS/ansible/ans_role_outputs_define.git  # REPLACE HERE!
+  scm: git
+  version: master
