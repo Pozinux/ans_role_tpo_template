@@ -1,0 +1,72 @@
+---
+- name: "Main Play to XXXXXXXXXXXXXXXXXX"  ## REPLACE HERE !
+  vars:
+    HOSTS: ""  # Default HOSTS is set to empty string to force user to define target hosts
+    vault_ansible_folder: "/etc/ansible/vaults"
+    vault_file: "vault-VAULT_NAME.yml"  ## REPLACE HERE !
+    playbook_description: "Main Play to XXXXXXXXXXXXXXXXXX"  ## REPLACE HERE !
+    succeed_result_msg: "{{ playbook_description }} SUCCEEDED"
+    failed_result_msg: "{{ playbook_description }} FAILED"
+    main_role_name: ans_role_XXXXXXXXXXXXXXXXXX  ## REPLACE HERE !
+    rescue_role_name: ans_role_rescue
+    outputs_define_role_name: ans_role_outputs_define
+
+  hosts: "{{ HOSTS }}"
+  gather_facts: no
+
+  tasks:
+
+    - name: "Security check: 'all' string is strictly forbidden in HOSTS"
+      assert:
+        that: (HOSTS | type_debug == 'list') and ('all' not in HOSTS)
+        fail_msg: "This playbook has stopped because HOSTS is not a list (if you have only one host then try to use a list with only one element) or 'all' is specified in hosts list"
+        success_msg: "This playbook continue because HOSTS is a list and doesn't contain 'all'"
+      run_once: yes
+      delegate_to: localhost
+
+    - name: "Include secrets from vault files {{ vault_file }}"
+      include_vars: "{{ vault_ansible_folder }}/{{ vault_file }}"
+      run_once: yes
+      delegate_to: localhost
+
+    ## A garder si besoin, exemples de chargements de vaults avec des variables   ## REPLACE HERE !
+
+    # - name: "Include secrets from vault files (MAKEVM)"
+    #   include_vars: "{{ my_vault_ansible_folder }}/vault-makevm.yml"
+    #   when: 
+    #     - hostvars[inventory_hostname].ansible_connection is defined
+    #     - "'winrm' in hostvars[inventory_hostname].ansible_connection"
+
+    # - name: "Include secrets from vault files (VCENTER)"
+    #   ansible.builtin.include_vars: "{{ my_vault_ansible_folder }}/vault-{{ hostvars[inventory_hostname].my_vmw_vcenter }}.yml"
+
+    - name: "MAIN TASKS: {{ playbook_description }}"
+      block:
+        - name: "Include role {{ main_role_name }}"
+          include_role:
+            name: "../../{{ main_role_name }}"
+          vars:
+            VARIABLE_NAME: "{{ VARIABLE_VALUE }}"  ## REPLACE HERE !
+            VARIABLE_NAME: "{{ VARIABLE_VALUE }}"  ## REPLACE HERE !     
+
+      rescue:
+        - name: "[RESCUE] Get all errors"
+          include_role:
+            name: "{{ rescue_role_name }}"
+            apply:
+              tags: always
+          vars:
+            failed_result: "{{ ansible_failed_result | default('') }}"
+          tags: always
+
+      always:
+        - name: "[ALWAYS] Define all the successes and failures of the playbook"
+          include_role:
+            name: "{{ outputs_define_role_name }}"
+            apply:
+              tags: always
+          vars:
+            result_error_msg: "{{ rescue_result | default([]) }}"
+            succeed_result_msg: "{{ succeed_result_msg }}"
+            failed_result_msg: "{{ failed_result_msg }}"
+          tags: always
