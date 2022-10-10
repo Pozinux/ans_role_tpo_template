@@ -6,8 +6,6 @@
     vault_file: "vault-VAULT_NAME.yml"  ## REPLACE HERE !
     playbook_description: "Main Play to XXXXXXXXXXXXXXXXXX"  ## REPLACE HERE !
     main_role_name: ans_role_XXXXXXXXXXXXXXXXXX  ## REPLACE HERE !
-    rescue_role_name: ans_role_rescue
-    outputs_define_role_name: ans_role_outputs_define
 
   hosts: "{{ HOSTS }}"
   gather_facts: no
@@ -50,7 +48,7 @@
       rescue:
         - name: "[RESCUE] Get all errors"
           include_role:
-            name: "{{ rescue_role_name }}"
+            name: ans_role_rescue
             apply:
               tags: always
           vars:
@@ -60,7 +58,7 @@
       always:
         - name: "[ALWAYS] Define all the successes and failures of the playbook"
           include_role:
-            name: "{{ outputs_define_role_name }}"
+            name: ans_role_outputs_define
             apply:
               tags: always
           vars:
