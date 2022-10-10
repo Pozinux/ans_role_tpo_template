@@ -6,8 +6,8 @@
   debug:
     msg: "Role argument= {{ item.name }} -> {{ item.value }}"
   loop:
-    - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE !
-    - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE !
+    - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE!
+    - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE!
   when: debug_role | bool
 
 - name: "Include tasks file based on operation '{{ operation }}'"
