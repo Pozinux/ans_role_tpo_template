@@ -1,11 +1,11 @@
 ---
-- name: "Main Play to XXXXXXXXXXXXXXXXXX"  ## REPLACE HERE !
+- name: "Main Play to XXXXXXXXXX"  ## REPLACE HERE !
   vars:
     HOSTS: ""  # Default HOSTS is set to empty string to force user to define target hosts
     vault_ansible_folder: "/etc/ansible/vaults"
     vault_file: "vault-VAULT_NAME.yml"  ## REPLACE HERE !
-    playbook_description: "Main Play to XXXXXXXXXXXXXXXXXX"  ## REPLACE HERE !
-    main_role_name: ans_role_XXXXXXXXXXXXXXXXXX  ## REPLACE HERE !
+    playbook_description: "Main Play to XXXXXXXXXX"  ## REPLACE HERE !
+    main_role_name: ans_role_YYYYYYYYYYY  ## REPLACE HERE !
 
   hosts: "{{ HOSTS }}"
   gather_facts: no
