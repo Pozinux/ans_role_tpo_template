@@ -63,6 +63,6 @@
               tags: always
           vars:
             result_error_msg: "{{ rescue_result | default([]) }}"
-            succeed_result_msg: "SUCCEEDED"
-            failed_result_msg: "FAILED"
+            succeed_result_msg: "{{ playbook_description }} - SUCCEEDED"
+            failed_result_msg: "{{ playbook_description }} - FAILED"
           tags: always
