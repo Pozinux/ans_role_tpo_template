@@ -1,5 +1,5 @@
-- name: ans_role_TPO_TEMPLATE  # REPLACE HERE!
-  src: http://GITLAB_ADDRESS/ansible/ans_role_TPO_TEMPLATE.git  # REPLACE HERE!
+- name: ans_role_ROLE_NAME  # REPLACE HERE!
+  src: http://GITLAB_ADDRESS/ansible/ans_role_ROLE_NAME.git  # REPLACE HERE!
   scm: git
   version: master
 
