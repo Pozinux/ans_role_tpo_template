@@ -6,6 +6,7 @@
     vault_file: "vault-VAULT_NAME.yml"  ## REPLACE HERE!
     playbook_description: "Main Play to XXXXXXXXXX"  ## REPLACE HERE!
     main_role_name: ans_role_YYYYYYYYYYY  ## REPLACE HERE!
+    operation: OPERATION  ## REPLACE HERE!
 
   hosts: "{{ HOSTS }}"
   gather_facts: no
