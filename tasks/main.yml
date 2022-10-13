@@ -2,7 +2,7 @@
 - name: "Include vars for '{{ operation }}' operation"
   include_vars: "../vars/{{ operation }}_vars.yml"
 
-- name: "Debug of passed arguments and values to the role"
+- name: "Debug of passed arguments and values to the role {{ operation }}"
   debug:
     msg: "Role argument= {{ item.name }} -> {{ item.value }}"
   loop:
@@ -12,7 +12,7 @@
     - operation == 'OPERATION1'
     - debug_role | bool
 
-- name: "Debug of passed arguments and values to the role"
+- name: "Debug of passed arguments and values to the role {{ operation }}"
   debug:
     msg: "Role argument= {{ item.name }} -> {{ item.value }}"
   loop:
