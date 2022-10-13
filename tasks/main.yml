@@ -8,7 +8,19 @@
   loop:
     - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE!
     - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE!
-  when: debug_role | bool
+  when:
+    - operation == 'OPERATION1'
+    - debug_role | bool
+
+- name: "Debug of passed arguments and values to the role"
+  debug:
+    msg: "Role argument= {{ item.name }} -> {{ item.value }}"
+  loop:
+    - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE!
+    - { name: "VARIABLE_NAME", value: "{{ VARIABLE_VALUE }}" }  ## REPLACE HERE!
+  when:
+    - operation == 'OPERATION2'
+    - debug_role | bool
 
 - name: "Include tasks file based on operation '{{ operation }}'"
   include_tasks: "{{ operation }}_tasks.yml"
